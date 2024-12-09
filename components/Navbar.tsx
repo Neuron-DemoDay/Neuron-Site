@@ -42,7 +42,7 @@ export function Navbar() {
         </Link>
         
         <div className="hidden md:flex items-center space-x-8">
-          {['Home', 'Sobre Nós', 'Intercâmbio'].map((item, index) => (
+          {['Home', 'Sobre Nos', 'Intercambio'].map((item, index) => (
             <motion.div
               key={item}
               initial={{ opacity: 0, y: -20 }}
@@ -100,7 +100,7 @@ export function Navbar() {
         variants={menuVariants}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-900 shadow-lg">
-          {['Home', 'Sobre Nós', 'Intercâmbio'].map((item) => (
+          {['Home', 'Sobre Nos', 'Intercambio'].map((item) => (
             <Link
               key={item}
               href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}

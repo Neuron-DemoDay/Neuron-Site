@@ -7,8 +7,8 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Github, Linkedin, Target, Eye, Star } from 'lucide-react'
-import { Navbar } from "../components/Navbar"
-import { useTheme } from "../components/ThemeContext"
+import { Navbar } from "@/components/Navbar"
+import { useTheme } from "@/components/ThemeContext"
 
 export default function AboutUs() {
   const { isDarkMode } = useTheme()
