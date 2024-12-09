@@ -1,20 +1,36 @@
 'use client'
 
-import Link from 'next/link'
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/LoginLabel"
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/LoginLabel";
+import api from "@/services/api";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter(); 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle login logic here
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = { email, password };
+
+    try {
+      const response = await api.post('api/account/login', data);
+
+      localStorage.setItem('email', email);
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('expiration', response.data.expiration);
+
+      router.push("/");
+    } catch (error) {
+      alert("O login falhou " + error);
+    }
+  };
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
@@ -44,9 +60,10 @@ export default function LoginPage() {
                   placeholder="Digite seu e-mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
+                  required                   
                 />
               </div>
+
               <div className="space-y-2">
                 <Label htmlFor="password">Senha</Label>
                 <Input
@@ -58,6 +75,7 @@ export default function LoginPage() {
                   required
                 />
               </div>
+
               <Button 
                 type="submit" 
                 className="w-full bg-purple-600 hover:bg-purple-700"
@@ -86,5 +104,5 @@ export default function LoginPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

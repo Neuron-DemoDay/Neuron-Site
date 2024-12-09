@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -15,13 +16,26 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 export default function Home() {
   const { isDarkMode } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     setMounted(true)
+    // Check if user is logged in
+    const token = localStorage.getItem('token')
+    setIsLoggedIn(!!token)
   }, [])
 
   if (!mounted) {
     return null
+  }
+
+  const handleCTAClick = () => {
+    if (isLoggedIn) {
+      router.push('/plataforma')
+    } else {
+      router.push('/Login')
+    }
   }
 
   return (
@@ -234,7 +248,11 @@ export default function Home() {
                 Acesse agora e explore oportunidades personalizadas que te ajudarão a
                 alcançar seus objetivos acadêmicos e profissionais.
               </p>
-              <Button size="lg" className="bg-white text-purple-600 hover:bg-purple-100">
+              <Button 
+                size="lg" 
+                className="bg-white text-purple-600 hover:bg-purple-100"
+                onClick={handleCTAClick}
+              >
                 Experimente Gratuitamente
               </Button>
             </motion.div>
@@ -315,3 +333,4 @@ export default function Home() {
     </div>
   )
 }
+
