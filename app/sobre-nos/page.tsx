@@ -111,18 +111,11 @@ export default function AboutUs() {
         <div className="grid md:grid-cols-3 gap-8">
           {[
             {
-              name: "VINICIUS SANTANA",
-              role: "Desenvolvedor Back-end",
-              image: "/team/vinicius.jpg",
-              linkedin: "vinicius-santana-2b385528b",
-              github: "viniciuspermec007",
-            },
-            {
-              name: "STEFANY GOMES",
-              role: "Desenvolvedora Front-end/UI & UX Designer",
-              image: "/team/stefany.jpg",
-              linkedin: "stefany-gomes",
-              github: "stefanyy",
+              name: "LUCAS SANTIAGO",
+              role: "P.O/Desenvolvedor Back-end",
+              image: "/team/lucas.jpg",
+              linkedin: "lucas-santiago-de-oliveira",
+              github: "lucassantiago0",
             },
             {
               name: "GUILHERME CAMPELO",
@@ -138,6 +131,20 @@ export default function AboutUs() {
               linkedin: "jenifercarvalhosilva",
               github: "jenifermarques",
             },
+            {
+              name: "VINICIUS SANTANA",
+              role: "Desenvolvedor Back-end",
+              image: "/team/vinicius.jpg",
+              linkedin: "vinicius-santana-2b385528b",
+              github: "viniciuspermec007",
+            },
+            {
+              name: "STEFANY GOMES",
+              role: "Desenvolvedora Front-end/UI & UX Designer",
+              image: "/team/stefany.jpg",
+              linkedin: "stefany-gomes",
+              github: "stefanyy",
+            },       
             {
               name: "GUILHERME MACEDO",
               role: "Desenvolvedor Front-end/UI & UX Designer",
@@ -158,20 +165,13 @@ export default function AboutUs() {
               image: "/team/gian.jpg",
               linkedin: "gian-luigi-bueno",
               github: "gianb",
-            },
-            {
-              name: "LUCAS SANTIAGO",
-              role: "P.O/Desenvolvedor Back-end",
-              image: "/team/lucas.jpg",
-              linkedin: "lucas-santiago-de-oliveira",
-              github: "lucassantiago0",
-            }
+            }            
           ].map((member, index) => (
             <Card key={index} className="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transform hover:scale-105 transition-transform duration-200">
               <div className="text-center space-y-4">
                 <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-purple-600">
                   <Image
-                    src={member.image}
+                    src={member.image}  
                     alt={member.name}
                     fill
                     className="object-cover"

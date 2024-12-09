@@ -6,7 +6,7 @@ import Link from "next/link"
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { BookOpen, Brain, Gamepad2, PenTool, Star, Sparkles, Zap, Globe } from 'lucide-react'
+import { Brain, Gamepad2, PenTool, Star, Sparkles, Zap, Globe } from 'lucide-react'
 import { Navbar } from "@/components/Navbar"
 import { useTheme } from "@/components/ThemeContext"
 import { Input } from "@/components/ui/input"
@@ -315,4 +315,3 @@ export default function Home() {
     </div>
   )
 }
-

@@ -11,18 +11,19 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/Cadastro/page": [
+    "/intercambio/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/Cadastro/page.css",
-      "static/chunks/app/Cadastro/page.js"
+      "static/chunks/app/intercambio/page.js"
+    ],
+    "/sobre-nos/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sobre-nos/page.js"
     ],
     "/Login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-<<<<<<< Updated upstream
-      "static/chunks/app/intercambio/page.js"
-=======
       "static/chunks/app/Login/page.js"
     ],
     "/ForgotPassword/page": [
@@ -34,12 +35,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/register/page.js"
-    ],
-    "/register/additional-info/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/register/additional-info/page.js"
->>>>>>> Stashed changes
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

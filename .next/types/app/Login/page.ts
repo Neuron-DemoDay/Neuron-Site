@@ -1,4 +1,4 @@
-// File: C:\Users\lucas\Desktop\NEURONSITEBUGADO\Neuron-Site\app\Login\page.tsx
+// File: C:\Users\lucas\Desktop\NEURONSITEBUGADO\Neuron-Site\app\Login\page.jsx
 import * as entry from '../../../../app/Login/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
