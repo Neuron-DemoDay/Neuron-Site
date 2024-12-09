@@ -5,7 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-import { useTheme } from './ThemeContext'
+import { useTheme } from '@/components/ThemeContext'
 import { Moon, Sun, Menu, X, User, Settings, LogOut } from 'lucide-react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 

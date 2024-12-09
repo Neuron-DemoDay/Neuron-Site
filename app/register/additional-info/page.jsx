@@ -1,35 +1,74 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/LoginLabel"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/LoginSelect"
+import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/LoginLabel";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/LoginSelect";
+import { useRegister } from '../../../context/RegisterContext';
+import api from '../../../services/api';
 
 export default function AdditionalInfoPage() {
-  const router = useRouter()
-  const [formData, setFormData] = useState({
-    birthDate: '',
-    education: '',
-    gender: '',
-    phone: ''
-  })
+  const router = useRouter();
+  const { formData, setFormData } = useRegister();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle final registration step
-    router.push('/dashboard') // or wherever you want to redirect after registration
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Ensure genero is a number
+    const dataToSend = {
+      ...formData,
+      genero: Number(formData.genero)
+    };
+
+    console.log('Dados sendo enviados:', dataToSend);
+
+    try {
+      const response = await api.post('api/account/register', dataToSend);
+      
+      if (response.status === 201 || response.status === 200) {
+        alert('Registro realizado com sucesso!');
+        router.push('/dashboard');
+      } else {
+        alert('Erro inesperado ao se registrar. Por favor, tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro detalhado:', error);
+
+      if (error.response) {
+        console.error('Resposta do servidor:', error.response.data);
+        if (error.response.status === 400) {
+          let errorMessage = 'Erro nos dados enviados. Por favor, verifique todas as informações e tente novamente.';
+          if (error.response.data.errors) {
+            errorMessage += '\n\nDetalhes:\n';
+            for (let field in error.response.data.errors) {
+              errorMessage += `${field}: ${error.response.data.errors[field].join(', ')}\n`;
+            }
+          }
+          alert(errorMessage);
+        } else {
+          alert(`Erro ao se registrar: ${error.response.data.message || 'Tente novamente mais tarde.'}`);
+        }
+      } else if (error.request) {
+        alert('Erro de conexão. Por favor, verifique sua internet e tente novamente.');
+      } else {
+        alert('Erro ao processar a requisição. Por favor, tente novamente.');
+      }
+    }
+  };
+
+  const handleBack = () => {
+    router.back();
+  };
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
       <div className="bg-gradient-to-br from-blue-600 to-cyan-600 p-8 flex flex-col justify-between">
         <div className="text-white text-3xl font-bold">Neuron</div>
         <div className="flex justify-center items-center h-full">
-          <img 
-            src="/placeholder.svg?height=400&width=400" 
+          <img
+            src="/placeholder.svg?height=400&width=400"
             alt="Additional info illustration"
             className="max-w-md rounded-lg shadow-xl"
           />
@@ -44,72 +83,82 @@ export default function AdditionalInfoPage() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="birthDate">Data de nascimento</Label>
+                <Label htmlFor="dateOfBirth">Data de nascimento</Label>
                 <Input
-                  id="birthDate"
+                  id="dateOfBirth"
                   type="date"
-                  value={formData.birthDate}
-                  onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                   required
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="education">Escolaridade</Label>
-                <Select 
-                  onValueChange={(value) => setFormData({...formData, education: value})}
+                <Select
+                  onValueChange={(value) => setFormData({ ...formData, education: value })}
                 >
                   <SelectTrigger id="education">
                     <SelectValue placeholder="Selecione sua escolaridade" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="fundamental">Ensino Fundamental</SelectItem>
-                    <SelectItem value="medio">Ensino Médio</SelectItem>
-                    <SelectItem value="superior">Ensino Superior</SelectItem>
-                    <SelectItem value="pos">Pós-graduação</SelectItem>
+                    <SelectItem value="Ensino Fundamental">Ensino Fundamental</SelectItem>
+                    <SelectItem value="Ensino Médio">Ensino Médio</SelectItem>
+                    <SelectItem value="Ensino Superior">Ensino Superior</SelectItem>
+                    <SelectItem value="Pós-graduação">Pós-graduação</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="gender">Gênero</Label>
+                <Label htmlFor="genero">Gênero</Label>
                 <Select
-                  onValueChange={(value) => setFormData({...formData, gender: value})}
+                  onValueChange={(value) => setFormData({ ...formData, genero: Number(value) })}
                 >
-                  <SelectTrigger id="gender">
+                  <SelectTrigger id="genero">
                     <SelectValue placeholder="Selecione seu gênero" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="masculino">Masculino</SelectItem>
-                    <SelectItem value="feminino">Feminino</SelectItem>
-                    <SelectItem value="outro">Outro</SelectItem>
-                    <SelectItem value="nao_informar">Prefiro não informar</SelectItem>
+                    <SelectItem value="1">Masculino</SelectItem>
+                    <SelectItem value="2">Feminino</SelectItem>
+                    <SelectItem value="3">Outro</SelectItem>
+                    <SelectItem value="0">Prefiro não informar</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Telefone</Label>
+                <Label htmlFor="phoneNumber">Telefone</Label>
                 <Input
-                  id="phone"
+                  id="phoneNumber"
                   type="tel"
                   placeholder="Digite seu telefone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  value={formData.phoneNumber}
+                  onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                   required
                 />
               </div>
 
-              <Button 
-                type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700"
-              >
-                Finalizar cadastro
-              </Button>
+              <div className="flex justify-between space-x-4">
+                <Button
+                  type="button"
+                  onClick={handleBack}
+                  className="w-full bg-gray-500 hover:bg-gray-600"
+                >
+                  Voltar
+                </Button>
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
+                  Finalizar cadastro
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
+
