@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,9 +26,10 @@ export default function LoginPage() {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('expiration', response.data.expiration);
 
-      router.push("/");
+      // Redirecionar para a URL correta (https://neuron-ia.com)
+      router.push('https://neuron-ia.com');
     } catch (error) {
-      alert("O login falhou " + error);
+      alert("O login falhou: " + error.message);
     }
   };
 
