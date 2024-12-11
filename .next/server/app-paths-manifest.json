@@ -3,5 +3,7 @@
   "/page": "app/page.js",
   "/Login/page": "app/Login/page.js",
   "/configuracoes/page": "app/configuracoes/page.js",
+  "/intercambio/page": "app/intercambio/page.js",
+  "/ForgotPassword/page": "app/ForgotPassword/page.js",
   "/register/page": "app/register/page.js"
 }
